@@ -1,16 +1,16 @@
 package com.devcourse.daangn.entity;
 
 public class UserDTO extends BaseDTO{
-    private int user_id;
+    private int userId;
     private String userName;
     private String location;
 
     public int getUser_id() {
-        return user_id;
+        return userId;
     }
 
     public void setUser_id(int user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
     public String getUserName() {
