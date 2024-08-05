@@ -17,11 +17,11 @@ public class UserRepositoryMysql implements UserRepository{
 //        userDTO.setUserName("민성훈");
 //        userDTO.setLocation("김천시 다수동");
 //        try {
-//            // 유저 등록
+//             유저 등록
 //            repo.saveUser(userDTO);
-//            // 유저 조회
+//             유저 조회
 //            System.out.println(repo.findUserByName("민성훈"));
-//        } catch (SQLException e) {
+//        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
 //    }
@@ -36,48 +36,51 @@ public class UserRepositoryMysql implements UserRepository{
     private ResultSet rs;
 
     @Override
-    public int saveUser(UserDTO userDTO) throws SQLException {
+    public int saveUser(UserDTO userDTO) throws IOException {
         /* TODO : 사용자 정보 등록(회원가입) */
         int result = 0;
-        try{
-            String sql = " INSERT INTO " +
-                    " tb_user(user_name, location) VALUES(?,?) ";
-            conn = DBUtil.getConnection();
-            ps = conn.prepareStatement(sql);
+        String sql = " INSERT INTO " +
+                " tb_user(user_name, location) VALUES(?,?) ";
+        conn = DBUtil.getConnection();
+        try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, userDTO.getUserName());
             ps.setString(2, userDTO.getLocation());
             result = ps.executeUpdate();
+            return result;
         }catch (SQLException ex){
-            System.out.println("insert error");
-            throw ex;
-        }finally {
-            DBUtil.close(conn, ps, rs);
+            throw new IOException("Insert Error");
         }
-        return result;
     }
 
     @Override
-    public UserDTO findUserByName(String userName) throws SQLException {
+    public UserDTO findUserByName(String userName) throws IOException {
         /* TODO : 사용자 정보 조회 */
         UserDTO user = null;
-
-        try {
-            String sql = " SELECT user_id, user_name, location, created_at FROM tb_user WHERE user_name like '" + userName +"'";
-            conn = DBUtil.getConnection();
-            ps = conn.prepareStatement(sql);
+        String sql = " SELECT user_id, user_name, location, created_at FROM tb_user WHERE user_name like '" + userName +"'";
+        conn = DBUtil.getConnection();
+        try(PreparedStatement ps = conn.prepareStatement(sql)){
             rs = ps.executeQuery();
             if(rs.next()){
                 user = makeUserDTO(rs);
             }
+            return user;
         }catch (SQLException ex){
-            System.out.println("update error");
-            throw ex;
-        }finally {
-            DBUtil.close(rs, ps, conn);
+            throw new IOException("Update Error");
         }
-
-        return user;
     }
+
+//    public int deleteById(int productId) throws IOException {
+//        String sql = "DELETE FROM daangn.tb_product WHERE product_id = ?";
+//        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+//            ps.setInt(1, productId);
+//
+//            return ps.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new IOException("Error deleting product", e);
+//        }
+//    }
+
+
     private UserDTO makeUserDTO(ResultSet rs) throws SQLException {
         UserDTO user = new UserDTO();
         user.setUserName(rs.getString("user_name"));
