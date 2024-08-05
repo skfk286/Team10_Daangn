@@ -10,6 +10,7 @@ import com.devcourse.daangn.entity.UserDTO;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -54,7 +55,7 @@ public class DaangnService {
      * @return
      * @throws IOException
      */
-    public boolean loginForm() throws IOException {
+    public boolean loginForm() throws IOException, SQLException {
         System.out.println("---------------------");
         System.out.println("\"당근\" 로그인 화면");
         System.out.println("---------------------");
@@ -79,7 +80,7 @@ public class DaangnService {
      * @return
      * @throws IOException
      */
-    public int joinForm() throws IOException {
+    public int joinForm() throws IOException, SQLException {
         System.out.println("---------------------");
         System.out.println("\"당근\" 회원가입 화면");
         System.out.println("---------------------");
