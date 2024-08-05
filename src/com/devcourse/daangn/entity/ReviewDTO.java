@@ -21,13 +21,17 @@ public class ReviewDTO extends BaseDTO {
         return this.productId;
     }
 
-    public void setProductId(int productId) {}
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 
     public int getUserId() {
         return this.userId;
     }
 
-    public void setUserId(int userId) {}
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public String getComment() {
         return comment;
@@ -55,7 +59,7 @@ public class ReviewDTO extends BaseDTO {
 
     @Override
     public String toString() {
-        return "---------" +
+        return "\t---------" +
                 "\n\t| 유저 아이디: " + userId +
                 "\n\t| 유저 유형: " + reviewType +
                 "\n\t---------" +
@@ -67,7 +71,8 @@ public class ReviewDTO extends BaseDTO {
                 "\n\t| 별점: " + rating +
                 "\n\t---------" +
                 "\n\t| 리뷰 생성일 - " + getCreatedAt() +
-                "\n\t---------";
+                "\n\t---------" +
+                "\n";
         }
 
 }
