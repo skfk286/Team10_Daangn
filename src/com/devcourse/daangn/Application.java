@@ -75,8 +75,6 @@ public class Application {
                                     isHome = false;
                                     isAppRunning = false;
                                 }
-
-
                             }
                             case 3 -> { // 좋아요 등록하기
 
