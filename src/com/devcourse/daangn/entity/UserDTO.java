@@ -5,12 +5,12 @@ public class UserDTO extends BaseDTO{
     private String userName;
     private String location;
 
-    public int getUser_id() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.userId = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
