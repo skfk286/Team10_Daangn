@@ -113,7 +113,7 @@ public class DaangnService {
         System.out.println("\"당근\" 메인 화면");
         System.out.println("---------------------");
         System.out.println("1. 홈 화면으로");
-        System.out.println("2. 채팅(아직 미구현)");
+        System.out.println("2. 나의 채팅 목록(아직 미구현)");
         System.out.println("3. 나의 당근");
         System.out.println("-1. 종료");
         System.out.println("---------------------");
@@ -127,7 +127,7 @@ public class DaangnService {
      * @return
      * @throws IOException
      */
-    public int homeForm() throws IOException {
+    public int[] homeForm() throws IOException {
         System.out.println("---------------------");
         System.out.println("\"당근\" 홈 화면");
         System.out.println("---------------------");
@@ -135,13 +135,45 @@ public class DaangnService {
         List<ProductDTO> products  = productRepository.findByCity(userDTO.getLocation());
         for (ProductDTO product : products) {
             /* TODO : 여기에서 모든 상품 리스트 먼저 보여주기 */
+            System.out.println(product.toString());
         }
         System.out.println("---------------------");
-        System.out.println("1. 홈 화면으로 가기");
-        System.out.println("2. 상세 정보 조회하기 (입력 예시 > 1 상품번호)");
-        System.out.println("3. 좋아요 등록하기 (입력 예시 > 2 상품번호)");
+        System.out.println("1. 메인 화면으로 가기");
+        System.out.println("2. 상세 정보 조회하기 (입력 예시 > 2 상품번호)");
+        System.out.println("3. 좋아요 등록하기 (입력 예시 > 3 상품번호)");
         System.out.println("4. 글쓰기");
         System.out.println("-1. 종료");
+        System.out.println("---------------------");
+        System.out.print("선택 > ");
+
+        int choice = Integer.parseInt(br.readLine());
+        int productNumber = -1;
+        if (choice == 2 || choice == 3) {
+            System.out.print("상품번호 > ");
+            productNumber = Integer.parseInt(br.readLine());
+        }
+
+        return new int[] {choice, productNumber};
+    }
+
+    /**
+     * 상품 상세 보기
+     */
+    public int detailProductForm(int productNumber) throws IOException {
+        System.out.println("---------------------");
+        System.out.println("\"당근\" 상품 상세보기");
+        System.out.println("---------------------");
+
+        // productRepository
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setProductId(1);
+        productDTO.setTitle("ddddddddd");
+
+        System.out.println("---------------------");
+        System.out.println("1. 홈 화면으로 가기");
+        System.out.println("2. 좋아요 등록하기");
+        System.out.println("3. 채팅하기");
+        System.out.println("-1. 종료하기");
         System.out.println("---------------------");
         System.out.print("선택 > ");
 
