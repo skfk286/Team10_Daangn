@@ -20,19 +20,6 @@ public class LikeRepositoryMysql implements LikeRepository {
         return instance;
     }
 
-    public static void main(String[] args) throws IOException {
-        UserRepository userRepository = UserRepositoryMysql.getInstance();
-        UserDTO userDTO = userRepository.findUserByName("강아지");
-
-        System.out.println(userDTO.getUserId());
-
-        ProductRepository productRepository = ProductRepositoryMysql.getInstance();
-        ProductDTO productDTO = productRepository.findProductByProductId(11);
-        System.out.println(productDTO.getProductId());
-
-        LikeRepositoryMysql mysql = new LikeRepositoryMysql();
-        mysql.UpdateLike(productDTO,userDTO);
-    }
 
 
     @Override
