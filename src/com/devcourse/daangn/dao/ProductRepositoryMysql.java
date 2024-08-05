@@ -18,12 +18,12 @@ public class ProductRepositoryMysql implements ProductRepository {
     public static ProductRepository getInstance() {
         return instance;
     }
-    private final Connection conn = DBUtil.getConnection();
 
     @Override
     public int saveProduct(ProductDTO productDTO, UserDTO userDTO) throws IOException {
         String sql = "INSERT INTO daangn.tb_product (user_id, title, content) VALUES (?, ?, ?)";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userDTO.getUserId());
             ps.setString(2, productDTO.getTitle());
             ps.setString(3, productDTO.getContent());
@@ -35,9 +35,10 @@ public class ProductRepositoryMysql implements ProductRepository {
     }
 
     @Override
-    public int deleteById(int productId) throws IOException {
+    public int deleteProductById(int productId) throws IOException {
         String sql = "DELETE FROM daangn.tb_product WHERE product_id = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, productId);
 
             return ps.executeUpdate();
@@ -47,10 +48,16 @@ public class ProductRepositoryMysql implements ProductRepository {
     }
 
     @Override
-    public List<ProductDTO> findByLocation(String location) throws IOException {
-        String sql = "SELECT * FROM daangn.tb_product WHERE location = ?";
+    public List<ProductDTO> findProductByLocation(String location) throws IOException {
+        String sql =
+                "SELECT p.* " +
+                "FROM daangn.tb_product p " +
+                "JOIN daangn.tb_user u ON p.user_id = u.user_id " +
+                "WHERE u.location = ?";
+
         List<ProductDTO> products = new ArrayList<>();
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, location);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -65,13 +72,63 @@ public class ProductRepositoryMysql implements ProductRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new IOException("Error finding products by city", e);
+            throw new IOException("Error finding products by location", e);
         }
         return products;
     }
 
     @Override
-    public List<ProductDTO> findByLike(String userId) throws IOException {
-        return null;
+    public List<ProductDTO> findProductByLike(String userId) throws IOException {
+        String sql =
+                "SELECT p.* " +
+                        "FROM daangn.tb_product p " +
+                        "JOIN daangn.tb_like l ON p.product_id = l.product_id " +
+                        "WHERE l.user_id = ?";
+
+        List<ProductDTO> products = new ArrayList<>();
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ProductDTO product = new ProductDTO();
+                    product.setProductId(rs.getInt("product_id"));
+                    product.setUserId(rs.getInt("user_id"));
+                    product.setTitle(rs.getString("title"));
+                    product.setContent(rs.getString("content"));
+
+                    products.add(product);
+                }
+            }
+        } catch (SQLException e) {
+            throw new IOException("Error finding products by like", e);
+        }
+        return products;
+    }
+
+    @Override
+    public ProductDTO findProductByProductId(int productId) throws IOException {
+        String sql = "SELECT * FROM daangn.tb_product WHERE product_id = ?";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, productId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ProductDTO product = new ProductDTO();
+                    product.setProductId(rs.getInt("product_id"));
+                    product.setUserId(rs.getInt("user_id"));
+                    product.setTitle(rs.getString("title"));
+                    product.setContent(rs.getString("content"));
+
+                    return product;
+                }
+            }
+        } catch (SQLException e) {
+            throw new IOException("Error finding product by productId", e);
+        }
+        return null; // 제품을 찾지 못한 경우 null 반환
     }
 }
