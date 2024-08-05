@@ -39,14 +39,18 @@ public class ProductDTO extends BaseDTO {
         this.content = content;
     }
 
+    @Override
     public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", userId='" + userId +
-                ", title=" + title +
-                ", content=" + content +
-                ", createdAt=" + getCreatedAt() +
-                ", updatedAt=" + getUpdatedAt() +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("----------------------------------\n");
+        sb.append("| 제목: ").append(title).append("\n");
+        sb.append("----------------------------------\n");
+        sb.append("| 설명:\n");
+        sb.append(content).append("\n");
+        sb.append("----------------------------------\n");
+        sb.append("| 생성일: ").append(getCreatedAt()).append("\n");
+        sb.append("| 수정일: ").append(getUpdatedAt()).append("\n");
+        sb.append("----------------------------------\n");
+        return sb.toString();
     }
 }
