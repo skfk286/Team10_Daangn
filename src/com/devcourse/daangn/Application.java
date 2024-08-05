@@ -11,6 +11,7 @@ import com.devcourse.daangn.service.DaangnService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Application {
@@ -24,13 +25,11 @@ public class Application {
     private static final UserRepository userRepository = UserRepositoryMysql.getInstance();
     private static final ProductRepository productRepository = ProductRepositoryMysql.getInstance();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        /**
-         * 로그인과 회원가입 진행
-         */
+
         while (!isLogin && isAppRunning) {
 
             int select = daangnService.loginGuideForm(); // 회원가입 또는 로그인 화면
