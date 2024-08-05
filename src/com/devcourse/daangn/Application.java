@@ -83,9 +83,6 @@ public class Application {
                     break;
             }
             
-            List<ProductDTO> products  = productRepository.findAll();
-
-
         }
     }
 }
