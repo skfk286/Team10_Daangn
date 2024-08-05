@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserRepositoryMysql implements UserRepository{
+    //단위 테스트
 //    public static void main(String[] args) {
 //        UserRepository repo = new UserRepositoryMysql();
 //        UserDTO userDTO = new UserDTO();
@@ -65,7 +66,7 @@ public class UserRepositoryMysql implements UserRepository{
             conn = DBUtil.getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            if(rs.next()){ // 글번호 이상하면 없을수는 있음.
+            if(rs.next()){
                 user = makeUserDTO(rs);
             }
         }catch (SQLException ex){
