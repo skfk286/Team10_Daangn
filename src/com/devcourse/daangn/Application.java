@@ -80,7 +80,7 @@ public class Application {
 
                             }
                             case 4 -> { // 글쓰기
-
+                                daangnService.writingForm();
                             }
                         }
                     }
