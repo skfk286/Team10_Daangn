@@ -1,15 +1,15 @@
 package com.devcourse.daangn.entity;
 
 public class UserDTO extends BaseDTO{
-    private String user_nickname;
+    private String userName;
     private String location;
 
-    public String getUser_nickname() {
-        return user_nickname;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_nickname(String user_nickname) {
-        this.user_nickname = user_nickname;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getLocation() {
@@ -22,7 +22,7 @@ public class UserDTO extends BaseDTO{
 
     public String toString(){
         return "UserDTO {" +
-                "user_nickname=" + user_nickname +
+                "user_nickname=" + userName +
                 ", location=" + location +
                 ", createdAt=" + getCreatedAt() +
                 ", updatedAt=" + getUpdatedAt() +
