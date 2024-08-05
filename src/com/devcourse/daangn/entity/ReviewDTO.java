@@ -53,18 +53,25 @@ public class ReviewDTO extends BaseDTO {
         this.reviewType = reviewType;
     }
 
+    @Override
     public String toString() {
-        return "ReviewDTO{" +
-                "reviewId=" + reviewId +
-                ", product=" + productId +
-                ", user=" + userId +
-                ", comment='" + comment + '\'' +
-                ", rating=" + rating +
-                ", reviewType='" + reviewType + '\'' +
-                ", createdAt=" + getCreatedAt() +
-                ", updatedAt=" + getUpdatedAt() +
-                '}';
-    }
-
+        return "---------" +
+                "\n\t| 유저 아이디: " + userId +
+                "\n\t| 유저 유형: " + reviewType +
+                "\n\t---------" +
+                "\n\t| 상품 아이디 : " + productId +
+                "\n\t---------" +
+                "\n\t| 설명 :" +
+                "\n\t| " + comment +
+                "\n\t---------" +
+                "\n\t| 별점: " + rating +
+                "\n\t---------" +
+                "\n\t| 리뷰 생성일 - " + getCreatedAt() +
+                "\n\t---------";
+        }
 
 }
+
+
+
+

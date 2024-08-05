@@ -7,19 +7,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReviewRepositoryMysql implements ReviewRepository {
 
-    private static ReviewRepository instance;
 
     public ReviewRepositoryMysql() {}
 
-    public static ReviewRepository getInstance() {
-        if (instance == null) {
-        instance = new ReviewRepositoryMysql();
-        }
-        return instance;
-    }
+    private static final ReviewRepository instance = new ReviewRepositoryMysql();
+
+    private final Connection conn = DBUtil.getConnection();
+
+    private static ReviewRepository getInstance(){return instance;}
+
 
 
     @Override
@@ -60,6 +61,7 @@ public class ReviewRepositoryMysql implements ReviewRepository {
                     reviewDTO.setRating(rs.getInt("rating"));
                     reviewDTO.setReviewType(rs.getString("review_type"));
                 }
+                return reviewDTO;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,6 +69,35 @@ public class ReviewRepositoryMysql implements ReviewRepository {
 
         return reviewDTO;
     }
+
+    @Override
+    public List<ReviewDTO> getReviewsByUserId(int userId) {
+        String sql = "SELECT * FROM review WHERE user_id = ?";
+        List<ReviewDTO> reviews = new ArrayList<>();
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ReviewDTO reviewDTO = new ReviewDTO();
+                    reviewDTO.setReviewId(rs.getInt("review_id"));
+                    reviewDTO.setProductId(rs.getInt("product_id"));
+                    reviewDTO.setUserId(rs.getInt("user_id"));
+                    reviewDTO.setComment(rs.getString("comment"));
+                    reviewDTO.setRating(rs.getInt("rating"));
+                    reviewDTO.setReviewType(rs.getString("review_type"));
+                    reviews.add(reviewDTO);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reviews;
+    }
+
 
     @Override
     public void updateReview(ReviewDTO reviewDTO) {
