@@ -136,8 +136,8 @@ public class DaangnService {
         }
         System.out.println("---------------------");
         System.out.println("1. 메인 화면으로 가기");
-        System.out.println("2. 상세 정보 조회하기 (입력 예시 > 2 상품번호)");
-        System.out.println("3. 좋아요 등록하기 (입력 예시 > 3 상품번호)");
+        System.out.println("2. 상세 정보 조회하기 (입력 예시 > 2 엔터 + 상품번호)");
+        System.out.println("3. 좋아요 등록하기 (입력 예시 > 3 엔터 + 상품번호)");
         System.out.println("4. 글쓰기");
         System.out.println("-1. 종료");
         System.out.println("---------------------");
@@ -177,9 +177,34 @@ public class DaangnService {
     }
 
     public void likeSuccessForm() throws IOException {
-        likeRepository.addLike(productDTO, userDTO);
-        System.out.println("> 정상적으로 좋아요를 추가 했습니다!.");
+        try {
+            int result = likeRepository.addLike(productDTO, userDTO);
+            if(result > 0) // 좋아요 눌림
+                System.out.println("[시스템] " + productDTO.getProductId() + " 좋아요를 추가 했습니다!");
+            else
+                System.out.println("[시스템] " + productDTO.getProductId() + "> 좋아요를 해제 했습니다!");
+
+        } catch (Exception e) {
+            throw new RuntimeException("좋아요 (addLike) 처리 오류.");
+        }
         productDTO = null;
+    }
+
+    public void writingForm() throws IOException {
+        System.out.println("---------------------");
+        System.out.println("\"당근\" 내 물건 팔기(물품 등록)");
+        System.out.println("---------------------");
+        System.out.print("제목 > ");
+        String title = br.readLine();
+        System.out.print("자세한 설명 > ");
+        String content = br.readLine();
+
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setTitle(title);
+        productDTO.setContent(content);
+
+        productRepository.saveProduct(productDTO, userDTO);
+        System.out.println("[시스템] 정상적으로 물품을 등록했습니다!\n");
     }
 
     /**

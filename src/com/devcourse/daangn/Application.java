@@ -75,14 +75,12 @@ public class Application {
                                     isHome = false;
                                     isAppRunning = false;
                                 }
-
-
                             }
                             case 3 -> { // 좋아요 등록하기
 
                             }
                             case 4 -> { // 글쓰기
-
+                                daangnService.writingForm();
                             }
                         }
                     }
