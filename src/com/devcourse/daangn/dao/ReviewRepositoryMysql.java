@@ -3,10 +3,7 @@ package com.devcourse.daangn.dao;
 import com.devcourse.daangn.entity.ReviewDTO;
 import com.devcourse.daangn.util.DBUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +20,7 @@ public class ReviewRepositoryMysql implements ReviewRepository {
 
     @Override
     public void createReview(ReviewDTO reviewDTO) {
-        String sql = "INSERT INTO review (product_id, user_id, comment, rating, created_at, updated_at, review_type) VALUES (?, ?, ?, ?, NOW(), NOW(), ?)";
+        String sql = "INSERT INTO tb_review (product_id, user_id, comment, rating, created_at, updated_at, review_type) VALUES (?, ?, ?, ?, NOW(), NOW(), ?)";
 
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -35,6 +32,11 @@ public class ReviewRepositoryMysql implements ReviewRepository {
             ps.setString(5, reviewDTO.getReviewType());
 
             ps.executeUpdate();
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // 중복된 product_id와 user_id 조합으로 인해 발생하는 예외를 처리합니다.
+            System.out.println("해당 상품에 대해 이미 후기가 존재합니다. 다른 후기를 작성해 주세요.");
+            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,10 +47,11 @@ public class ReviewRepositoryMysql implements ReviewRepository {
         String sql = "SELECT * FROM review WHERE review_id = ?";
         ReviewDTO reviewDTO = null;
 
+
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, reviewId);
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     reviewDTO = new ReviewDTO();
