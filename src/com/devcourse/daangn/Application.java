@@ -19,10 +19,10 @@ public class Application {
 
     private static UserDTO userDTO; // 사용자 로그인 세션
 
-    private static DaangnService daangnService = DaangnService.getInstance();
+    private static final DaangnService daangnService = DaangnService.getInstance();
 
-    private static UserRepository userRepository = UserRepositoryMysql.getInstance();
-    private static ProductRepository productRepository = ProductRepositoryMysql.getInstance();
+    private static final UserRepository userRepository = UserRepositoryMysql.getInstance();
+    private static final ProductRepository productRepository = ProductRepositoryMysql.getInstance();
 
     public static void main(String[] args) throws IOException {
 
