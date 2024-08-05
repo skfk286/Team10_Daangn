@@ -51,23 +51,23 @@ public class Application {
 
             int select = daangnService.mainForm(); // 메인 화면
 
+            boolean isHome = true;
             switch (select) {
                 case 1 -> { // 홈화면으로.
 
-                    int select2 = daangnService.homeForm();
+                    int[] select2 = daangnService.homeForm();
 
-//                    switch (select2) {
-//                        case 1 -> {
-//
-//                        }
-//                        case 2 -> {
-//
-//                        }
-//                        case 3 -> {// 메인 화면으로.
-//
-//                        }
-//
-//                    }
+                    switch (select2[0]) {
+                        case 1 -> { // 메인 화면으로 가기
+                            isHome = false;
+                        }
+                        case 2 -> { // 상세 정보 조회하기
+                            daangnService.detailProductForm(select2[1]);
+                        }
+                        case 3 -> { // 메인 화면으로.
+
+                        }
+                    }
                 }
                 case 2 -> { // 채팅
 
@@ -77,9 +77,9 @@ public class Application {
                 }
                 case -1 -> {
                     isAppRunning = daangnService.terminateSystem();
-
                 }
             }
+
 
         }
     }
