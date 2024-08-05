@@ -4,6 +4,8 @@ import java.util.List;
 
 public class PrintEntity {
 
+
+    //PrintEntity.print(user.toString()); 와 같은 형태로 이용할 수 있습니다.
     public static <T> void print(T item) {
         if (item instanceof List<?>) {
             ((List<?>) item).forEach(element -> System.out.println(element.toString()));
@@ -13,6 +15,8 @@ public class PrintEntity {
             System.out.println("올바른 값을 넣어주세요.");
         }
     }
+
+
 
 
 }
