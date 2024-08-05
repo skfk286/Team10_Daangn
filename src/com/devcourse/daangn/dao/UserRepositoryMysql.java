@@ -14,7 +14,7 @@ public class UserRepositoryMysql implements UserRepository{
 //    public static void main(String[] args) {
 //        UserRepository repo = new UserRepositoryMysql();
 //        UserDTO userDTO = new UserDTO();
-//        userDTO.setUserName("민기훈");
+//        userDTO.setUserName("민성훈");
 //        userDTO.setLocation("김천시 다수동");
 //        try {
 ////             유저 등록
@@ -25,7 +25,6 @@ public class UserRepositoryMysql implements UserRepository{
 //            throw new RuntimeException(e);
 //        }
 //    }
-
     private UserRepositoryMysql() {}
 
     private static UserRepository instance = new UserRepositoryMysql();
@@ -100,7 +99,7 @@ public class UserRepositoryMysql implements UserRepository{
 
     private UserDTO makeUserDTO(ResultSet rs) throws SQLException {
         UserDTO user = new UserDTO();
-        user.setUserName(rs.getString("userName"));
+        user.setUserName(rs.getString("user_name"));
         user.setLocation(rs.getString("location"));
         return user;
     }

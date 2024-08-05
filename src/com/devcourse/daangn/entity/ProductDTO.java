@@ -5,7 +5,6 @@ public class ProductDTO extends BaseDTO {
     private int productId;
     private int userId;
     private String title;
-    private String location;
     private String content;
 
     public int getProductId() {
@@ -32,14 +31,6 @@ public class ProductDTO extends BaseDTO {
         this.title = title;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getContent() {
         return content;
     }
@@ -48,15 +39,18 @@ public class ProductDTO extends BaseDTO {
         this.content = content;
     }
 
+    @Override
     public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", userId='" + userId +
-                ", title=" + title +
-                ", location=" + location +
-                ", content=" + content +
-                ", createdAt=" + getCreatedAt() +
-                ", updatedAt=" + getUpdatedAt() +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("----------------------------------\n");
+        sb.append("| 제목: ").append(title).append("\n");
+        sb.append("----------------------------------\n");
+        sb.append("| 설명:\n");
+        sb.append(content).append("\n");
+        sb.append("----------------------------------\n");
+        sb.append("| 생성일: ").append(getCreatedAt()).append("\n");
+        sb.append("| 수정일: ").append(getUpdatedAt()).append("\n");
+        sb.append("----------------------------------\n");
+        return sb.toString();
     }
 }
