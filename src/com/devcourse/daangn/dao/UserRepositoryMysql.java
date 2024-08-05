@@ -99,6 +99,7 @@ public class UserRepositoryMysql implements UserRepository{
 
     private UserDTO makeUserDTO(ResultSet rs) throws SQLException {
         UserDTO user = new UserDTO();
+        user.setUserId(rs.getInt("user_id"));
         user.setUserName(rs.getString("user_name"));
         user.setLocation(rs.getString("location"));
         return user;
