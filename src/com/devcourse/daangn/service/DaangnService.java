@@ -1,9 +1,6 @@
 package com.devcourse.daangn.service;
 
-import com.devcourse.daangn.dao.ProductRepository;
-import com.devcourse.daangn.dao.ProductRepositoryMysql;
-import com.devcourse.daangn.dao.UserRepository;
-import com.devcourse.daangn.dao.UserRepositoryMysql;
+import com.devcourse.daangn.dao.*;
 import com.devcourse.daangn.entity.ProductDTO;
 import com.devcourse.daangn.entity.UserDTO;
 
@@ -27,11 +24,11 @@ public class DaangnService {
 
     private static UserRepository userRepository = UserRepositoryMysql.getInstance();
     private static ProductRepository productRepository = ProductRepositoryMysql.getInstance();
-
+    private static LikeRepository likeRepository = LikeRepositoryMysql.getInstance();
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     UserDTO userDTO; // 로그인 세션 유지.
-
+    ProductDTO productDTO; // 선택된 상품.
     /**
      * 회원가입 또는 로그인 선택 안내 화면
      * @return
@@ -159,25 +156,32 @@ public class DaangnService {
     /**
      * 상품 상세 보기
      */
-    public int detailProductForm(int productNumber) throws IOException {
+    public int detailProductForm(int productId) throws IOException {
         System.out.println("---------------------");
         System.out.println("\"당근\" 상품 상세보기");
         System.out.println("---------------------");
 
         // productRepository
-        ProductDTO productDTO = new ProductDTO();
+        productDTO = new ProductDTO();
         productDTO.setProductId(1);
         productDTO.setTitle("ddddddddd");
 
         System.out.println("---------------------");
-        System.out.println("1. 홈 화면으로 가기");
-        System.out.println("2. 좋아요 등록하기");
-        System.out.println("3. 채팅하기");
+        System.out.println("1. 메인 화면으로 가기");
+        System.out.println("2. 홈 화면으로 가기");
+        System.out.println("3. 좋아요 등록하기");
+        System.out.println("4. 채팅하기(미구현)");
         System.out.println("-1. 종료하기");
         System.out.println("---------------------");
         System.out.print("선택 > ");
 
         return Integer.parseInt(br.readLine());
+    }
+
+    public void likeSuccessForm() throws IOException {
+        likeRepository.addLike(productDTO, userDTO);
+        System.out.println("> 정상적으로 좋아요를 추가 했습니다!.");
+        productDTO = null;
     }
 
     /**
