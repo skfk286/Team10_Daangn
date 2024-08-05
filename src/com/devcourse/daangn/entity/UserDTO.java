@@ -31,7 +31,7 @@ public class UserDTO extends BaseDTO{
 
     public String toString(){
         return "UserDTO {" +
-                "user_nickname=" + userName +
+                "userName=" + userName +
                 ", location=" + location +
                 ", createdAt=" + getCreatedAt() +
                 ", updatedAt=" + getUpdatedAt() +
