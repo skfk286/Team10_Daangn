@@ -1,9 +1,6 @@
 package com.devcourse.daangn.service;
 
-import com.devcourse.daangn.dao.ProductRepository;
-import com.devcourse.daangn.dao.ProductRepositoryMysql;
-import com.devcourse.daangn.dao.UserRepository;
-import com.devcourse.daangn.dao.UserRepositoryMysql;
+import com.devcourse.daangn.dao.*;
 import com.devcourse.daangn.entity.ProductDTO;
 import com.devcourse.daangn.entity.UserDTO;
 
@@ -27,11 +24,11 @@ public class DaangnService {
 
     private static UserRepository userRepository = UserRepositoryMysql.getInstance();
     private static ProductRepository productRepository = ProductRepositoryMysql.getInstance();
-
+    private static LikeRepository likeRepository = LikeRepositoryMysql.getInstance();
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     UserDTO userDTO; // 로그인 세션 유지.
-
+    ProductDTO productDTO; // 선택된 상품.
     /**
      * 회원가입 또는 로그인 선택 안내 화면
      * @return
@@ -113,7 +110,7 @@ public class DaangnService {
         System.out.println("\"당근\" 메인 화면");
         System.out.println("---------------------");
         System.out.println("1. 홈 화면으로");
-        System.out.println("2. 채팅(아직 미구현)");
+        System.out.println("2. 나의 채팅 목록(아직 미구현)");
         System.out.println("3. 나의 당근");
         System.out.println("-1. 종료");
         System.out.println("---------------------");
@@ -127,25 +124,62 @@ public class DaangnService {
      * @return
      * @throws IOException
      */
-    public int homeForm() throws IOException {
+    public int[] homeForm() throws IOException {
         System.out.println("---------------------");
         System.out.println("\"당근\" 홈 화면");
         System.out.println("---------------------");
 
-        List<ProductDTO> products  = productRepository.findByLocation(userDTO.getLocation());
+        List<ProductDTO> products  = productRepository.findProductByLocation(userDTO.getLocation());
         for (ProductDTO product : products) {
             /* TODO : 여기에서 모든 상품 리스트 먼저 보여주기 */
+            System.out.println(product.toString());
         }
         System.out.println("---------------------");
-        System.out.println("1. 홈 화면으로 가기");
-        System.out.println("2. 상세 정보 조회하기 (입력 예시 > 1 상품번호)");
-        System.out.println("3. 좋아요 등록하기 (입력 예시 > 2 상품번호)");
+        System.out.println("1. 메인 화면으로 가기");
+        System.out.println("2. 상세 정보 조회하기 (입력 예시 > 2 상품번호)");
+        System.out.println("3. 좋아요 등록하기 (입력 예시 > 3 상품번호)");
         System.out.println("4. 글쓰기");
         System.out.println("-1. 종료");
         System.out.println("---------------------");
         System.out.print("선택 > ");
 
+        int choice = Integer.parseInt(br.readLine());
+        int productNumber = -1;
+        if (choice == 2 || choice == 3) {
+            System.out.print("상품번호 > ");
+            productNumber = Integer.parseInt(br.readLine());
+        }
+
+        return new int[] {choice, productNumber};
+    }
+
+    /**
+     * 상품 상세 보기
+     */
+    public int detailProductForm(int productId) throws IOException {
+        System.out.println("---------------------");
+        System.out.println("\"당근\" 상품 상세보기");
+        System.out.println("---------------------");
+
+        productDTO = productRepository.findProductByProductId(productId);
+        System.out.println(productDTO.toString());
+
+        System.out.println("---------------------");
+        System.out.println("1. 메인 화면으로 가기");
+        System.out.println("2. 홈 화면으로 가기");
+        System.out.println("3. 좋아요 등록하기");
+        System.out.println("4. 채팅하기(미구현)");
+        System.out.println("-1. 종료하기");
+        System.out.println("---------------------");
+        System.out.print("선택 > ");
+
         return Integer.parseInt(br.readLine());
+    }
+
+    public void likeSuccessForm() throws IOException {
+        likeRepository.addLike(productDTO, userDTO);
+        System.out.println("> 정상적으로 좋아요를 추가 했습니다!.");
+        productDTO = null;
     }
 
     /**
