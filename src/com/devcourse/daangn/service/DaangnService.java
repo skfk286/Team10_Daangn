@@ -193,7 +193,7 @@ public class DaangnService {
 
     public void likeSuccessForm() throws IOException {
         try {
-            int result = likeRepository.addLike(productDTO, userDTO);
+            int result = likeRepository.updateLike(productDTO, userDTO);
             if(result > 0) // 좋아요 눌림
                 System.out.println("[시스템] " + productDTO.getProductId() + " 좋아요를 추가 했습니다!");
             else
