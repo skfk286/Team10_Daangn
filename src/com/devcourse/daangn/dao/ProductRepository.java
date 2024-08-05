@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface ProductRepository {
     int saveProduct(ProductDTO productDTO) throws IOException; // 상품 등록
-    int deleteById() throws IOException; // 상품 제거
-    List<ProductDTO> findAll() throws IOException; // 제품 전체 정보 조회
+    int deleteById(int productId) throws IOException; // 상품 제거
     List<ProductDTO> findByCity(String city) throws IOException; // 지역 별 상품 조회
 }
