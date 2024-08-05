@@ -17,8 +17,6 @@ public class ReviewRepositoryMysql implements ReviewRepository {
 
     private static final ReviewRepository instance = new ReviewRepositoryMysql();
 
-    private final Connection conn = DBUtil.getConnection();
-
     private static ReviewRepository getInstance(){return instance;}
 
 
