@@ -1,11 +1,14 @@
-![image](https://github.com/user-attachments/assets/c4057d1b-9422-4b6d-94f7-a3fe9860277b)데브코스 백앤드 1기 10팀
+데브코스 백앤드 1기 10팀
+
 
 ![image](https://github.com/user-attachments/assets/e2093789-f205-4a12-ae79-183f31f30ff2)
 
 [ERD]
+
 <img width="447" alt="Untitled" src="https://github.com/user-attachments/assets/fe36dd27-d96a-4bda-ab5b-19531e94b6d9">
 
 [Table]
+
 ![image](https://github.com/user-attachments/assets/cabc30ce-8194-42c4-a007-4f7048a3678c)
 
 
@@ -18,7 +21,8 @@
 4. 상품 전체 조회 목록
 5. 지역 별 상품 조회
 
-[당근 화면 설계]
+
+hub.com/user-attachments/assets/c4057d1b-9422-4b6d-94f7-a3fe9860277b)
 ![image](https://github.com/user-attachments/assets/62656fa8-6d45-46ff-8f39-5a83a2d39360)
 ![image](https://github.com/user-attachments/assets/9ef41bde-26e5-4728-8f0c-0cc1eb28a7e3)
 ![image](https://github.com/user-attachments/assets/bb6cd16d-4584-4997-8397-4b9f93801b5a)
