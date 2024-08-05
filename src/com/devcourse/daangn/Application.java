@@ -77,7 +77,7 @@ public class Application {
                                 }
                             }
                             case 3 -> { // 좋아요 등록하기
-
+                                daangnService.likeSelectSuccessForm(select2[1]);
                             }
                             case 4 -> { // 글쓰기
                                 daangnService.writingForm();
