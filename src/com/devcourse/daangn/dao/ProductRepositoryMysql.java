@@ -22,12 +22,11 @@ public class ProductRepositoryMysql implements ProductRepository {
 
     @Override
     public int saveProduct(ProductDTO productDTO, UserDTO userDTO) throws IOException {
-        String sql = "INSERT INTO daangn.tb_product (product_id, user_id, title, content) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO daangn.tb_product (user_id, title, content) VALUES (?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, productDTO.getProductId());
-            ps.setInt(2, productDTO.getUserId());
-            ps.setString(3, productDTO.getTitle());
-            ps.setString(4, productDTO.getContent());
+            ps.setInt(1, userDTO.getUserId());
+            ps.setString(2, productDTO.getTitle());
+            ps.setString(3, productDTO.getContent());
 
             return ps.executeUpdate();
         } catch (SQLException e) {
