@@ -176,6 +176,21 @@ public class DaangnService {
         return Integer.parseInt(br.readLine());
     }
 
+    public void likeSelectSuccessForm(int productId) throws IOException {
+        try {
+            ProductDTO inputDTO = new ProductDTO();
+            inputDTO.setProductId(productId);
+            int result = likeRepository.addLike(inputDTO, userDTO);
+            if(result > 0) // 좋아요 눌림
+                System.out.println("[시스템] " + inputDTO.getProductId() + " 좋아요를 추가 했습니다!");
+            else
+                System.out.println("[시스템] " + inputDTO.getProductId() + "> 좋아요를 해제 했습니다!");
+
+        } catch (Exception e) {
+            throw new RuntimeException("좋아요 (addLike) 처리 오류.");
+        }
+    }
+
     public void likeSuccessForm() throws IOException {
         try {
             int result = likeRepository.addLike(productDTO, userDTO);
