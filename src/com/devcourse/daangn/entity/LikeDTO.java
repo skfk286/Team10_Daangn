@@ -2,8 +2,8 @@ package com.devcourse.daangn.entity;
 
 public class LikeDTO {
     private int likeId;
-    private int userId;
-    private int productId;
+    private UserDTO userDTO;
+    private ProductDTO productDTO;
 
     public int getLikeId() {
         return likeId;
