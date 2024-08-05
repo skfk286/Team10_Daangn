@@ -39,7 +39,8 @@ public class LikeRepositoryMysql implements LikeRepository {
         }
     }
 
-    public int UpdateLike(ProductDTO productDTO,UserDTO userDTO) throws IOException {
+    @Override
+    public int updateLike(ProductDTO productDTO,UserDTO userDTO) throws IOException {
         if(isExist(productDTO, userDTO)){
             return removeLike(productDTO,userDTO);
         }else {
@@ -60,7 +61,8 @@ public class LikeRepositoryMysql implements LikeRepository {
             throw new RuntimeException("좋아요 등록 실패");
         }
     }
-    public boolean isExist(ProductDTO productDTO,UserDTO userDTO)throws IOException {
+    @Override
+    public boolean isExist(ProductDTO productDTO,UserDTO userDTO) throws IOException {
         boolean exist = false;
         String sql = "select count(*) from tb_like where product_id=? and user_id=?";
         try (Connection conn = DBUtil.getConnection();
