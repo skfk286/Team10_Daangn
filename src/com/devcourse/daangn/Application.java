@@ -36,20 +36,18 @@ public class Application {
 
             switch (select) {
 
-                case 1: // 로그인
+                case 1 -> { // 로그인
                     isLogin = daangnService.loginForm();
                     if (!isLogin) { // 로그인 실패
                         continue; // 다시 로그인 화면으로
                     }
-
-                    break;
-                case 2: // 회원가입
+                }
+                case 2 -> { // 회원가입
                     daangnService.joinForm();
-
-                    break;
-                case -1:
+                }
+                case -1 -> {
                     isAppRunning = daangnService.terminateSystem();
-                    break;
+                }
             }
         }
 
@@ -58,28 +56,33 @@ public class Application {
             int select = daangnService.mainForm(); // 메인 화면
             
             switch (select) {
-                case 1: // 홈화면으로.
+                case 1 -> { // 홈화면으로.
 
                     int select2 = daangnService.homeForm();
 
                     switch (select2) {
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3: // 메인 화면으로.
-                            break;
+                        case 1 -> {
+
+                        }
+                        case 2 -> {
+
+                        }
+                        case 3 -> {// 메인 화면으로.
+
+                        }
 
                     }
+                }
+                case 2 -> { // 채팅
 
-                    break;
-                case 2: // 채팅
-                    break;
-                case 3: // 나의 당근 -> 내 프로필 정보
-                    break;
-                case -1:
+                }
+                case 3 -> { // 나의 당근 -> 내 프로필 정보
+
+                }
+                case -1 -> {
                     isAppRunning = daangnService.terminateSystem();
-                    break;
+
+                }
             }
             
         }
