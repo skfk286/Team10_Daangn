@@ -161,10 +161,8 @@ public class DaangnService {
         System.out.println("\"당근\" 상품 상세보기");
         System.out.println("---------------------");
 
-        // productRepository
-        productDTO = new ProductDTO();
-        productDTO.setProductId(1);
-        productDTO.setTitle("ddddddddd");
+        productDTO = productRepository.findProductByProductId(productId);
+        System.out.println(productDTO.toString());
 
         System.out.println("---------------------");
         System.out.println("1. 메인 화면으로 가기");
