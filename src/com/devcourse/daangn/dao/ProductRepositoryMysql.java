@@ -1,6 +1,7 @@
 package com.devcourse.daangn.dao;
 
 import com.devcourse.daangn.entity.ProductDTO;
+import com.devcourse.daangn.entity.UserDTO;
 import com.devcourse.daangn.util.DBUtil;
 
 import java.io.IOException;
@@ -20,14 +21,13 @@ public class ProductRepositoryMysql implements ProductRepository {
     private final Connection conn = DBUtil.getConnection();
 
     @Override
-    public int saveProduct(ProductDTO productDTO) throws IOException {
-        String sql = "INSERT INTO daangn.tb_product (product_id, user_id, title, location, content) VALUES (?, ?, ?, ?, ?)";
+    public int saveProduct(ProductDTO productDTO, UserDTO userDTO) throws IOException {
+        String sql = "INSERT INTO daangn.tb_product (product_id, user_id, title, content) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, productDTO.getProductId());
             ps.setInt(2, productDTO.getUserId());
             ps.setString(3, productDTO.getTitle());
-            ps.setString(4, productDTO.getLocation());
-            ps.setString(5, productDTO.getContent());
+            ps.setString(4, productDTO.getContent());
 
             return ps.executeUpdate();
         } catch (SQLException e) {
@@ -48,7 +48,7 @@ public class ProductRepositoryMysql implements ProductRepository {
     }
 
     @Override
-    public List<ProductDTO> findByCity(String location) throws IOException {
+    public List<ProductDTO> findByLocation(String location) throws IOException {
         String sql = "SELECT * FROM daangn.tb_product WHERE location = ?";
         List<ProductDTO> products = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -60,7 +60,6 @@ public class ProductRepositoryMysql implements ProductRepository {
                     product.setProductId(rs.getInt("product_id"));
                     product.setUserId(rs.getInt("user_id"));
                     product.setTitle(rs.getString("title"));
-                    product.setLocation(rs.getString("location"));
                     product.setContent(rs.getString("content"));
 
                     products.add(product);
@@ -70,5 +69,10 @@ public class ProductRepositoryMysql implements ProductRepository {
             throw new IOException("Error finding products by city", e);
         }
         return products;
+    }
+
+    @Override
+    public List<ProductDTO> findByLike(String userId) throws IOException {
+        return null;
     }
 }
