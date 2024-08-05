@@ -27,7 +27,7 @@ public class LikeRepositoryMysql implements LikeRepository {
         System.out.println(userDTO.getUserId());
 
         ProductRepository productRepository = ProductRepositoryMysql.getInstance();
-        ProductDTO productDTO = productRepository.findProductByProductId(8);
+        ProductDTO productDTO = productRepository.findProductByProductId(11);
         System.out.println(productDTO.getProductId());
 
         LikeRepositoryMysql mysql = new LikeRepositoryMysql();
@@ -82,7 +82,6 @@ public class LikeRepositoryMysql implements LikeRepository {
             ps.setInt(2, userDTO.getUserId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                System.out.println(rs.getString(1));
                 if (rs.getInt(1) > 0){
                     exist = true;
                 }
