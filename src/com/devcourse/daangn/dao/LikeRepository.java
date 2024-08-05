@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface LikeRepository {
     int findByProduct(ProductDTO productDTO) throws IOException;
-    int addLike(ProductDTO productDTO) throws IOException;
-    int removeLike(ProductDTO productDTO) throws IOException;
-    List<ProductDTO> findByUserId(UserDTO userDTO) throws IOException;
+    int addLike(ProductDTO productDTO,UserDTO userDTO) throws IOException;
+    int removeLike(ProductDTO productDTO,UserDTO userDTO) throws IOException;
+//    List<ProductDTO> findByUserId(UserDTO userDTO) throws IOException;
 }
