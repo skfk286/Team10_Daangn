@@ -90,7 +90,8 @@ public class DaangnService {
         String location = br.readLine();
 
         UserDTO userDTO = new UserDTO();
-
+        userDTO.setUserName(userName);
+        userDTO.setLocation(location);
         int result = userRepository.saveUser(userDTO);
 
         if(result > 0)
