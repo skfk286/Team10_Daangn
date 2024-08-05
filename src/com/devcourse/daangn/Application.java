@@ -18,17 +18,13 @@ public class Application {
     private static boolean isLogin = false; // 로그인 상태
     private static boolean isAppRunning = true; // 앱 실행 상태
 
-    private static UserDTO userDTO; // 사용자 로그인 세션
-
     private static final DaangnService daangnService = DaangnService.getInstance();
 
     private static final UserRepository userRepository = UserRepositoryMysql.getInstance();
     private static final ProductRepository productRepository = ProductRepositoryMysql.getInstance();
 
+
     public static void main(String[] args) throws IOException, SQLException {
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
 
         while (!isLogin && isAppRunning) {
 
@@ -54,24 +50,24 @@ public class Application {
         while (isLogin && isAppRunning) { // 로그인 완료된 상태.
 
             int select = daangnService.mainForm(); // 메인 화면
-            
+
             switch (select) {
                 case 1 -> { // 홈화면으로.
 
                     int select2 = daangnService.homeForm();
 
-                    switch (select2) {
-                        case 1 -> {
-
-                        }
-                        case 2 -> {
-
-                        }
-                        case 3 -> {// 메인 화면으로.
-
-                        }
-
-                    }
+//                    switch (select2) {
+//                        case 1 -> {
+//
+//                        }
+//                        case 2 -> {
+//
+//                        }
+//                        case 3 -> {// 메인 화면으로.
+//
+//                        }
+//
+//                    }
                 }
                 case 2 -> { // 채팅
 
@@ -84,7 +80,7 @@ public class Application {
 
                 }
             }
-            
+
         }
     }
 }
