@@ -27,7 +27,7 @@ public class LikeRepositoryMysql implements LikeRepository {
     public int findByProduct(ProductDTO productDTO) throws IOException {
         int result = 0;
         try {
-            String sql = "select count(*) from like where product_id=?";
+            String sql = "select count(*) from tb_like where product_id=?";
             pstms = conn.prepareStatement(sql);
             pstms.setInt(1, productDTO.getProductId());
             rs = pstms.executeQuery();
@@ -47,7 +47,7 @@ public class LikeRepositoryMysql implements LikeRepository {
         /* TODO : 좋아요 등록 */
         int result = 0;
         try {
-            String sql = "insert into likes (product_id, user_id) values (?, ?)";
+            String sql = "insert into tb_like (product_id, user_id) values (?, ?)";
             conn = DBUtil.getConnection();
             pstms = conn.prepareStatement(sql);
             pstms.setInt(1, productDTO.getProductId());
@@ -65,7 +65,7 @@ public class LikeRepositoryMysql implements LikeRepository {
 
         int result = 0;
         try {
-            String sql = "delete from likes where product_id = ? && user_id = ?";
+            String sql = "delete from tb_like where product_id = ? && user_id = ?";
             conn = DBUtil.getConnection();
             pstms = conn.prepareStatement(sql);
             pstms.setInt(1, productDTO.getProductId());
