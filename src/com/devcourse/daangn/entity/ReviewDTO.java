@@ -2,8 +2,8 @@ package com.devcourse.daangn.entity;
 
 public class ReviewDTO extends BaseDTO {
     private int reviewId;
-    private int product;
-    private int user;
+    private int productId;
+    private int userId;
     private String comment;
     private int rating;
     private String reviewType;
@@ -16,6 +16,18 @@ public class ReviewDTO extends BaseDTO {
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
     }
+
+    public int getProductId() {
+        return this.productId;
+    }
+
+    public void setProductId(int productId) {}
+
+    public int getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(int userId) {}
 
     public String getComment() {
         return comment;
@@ -44,8 +56,8 @@ public class ReviewDTO extends BaseDTO {
     public String toString() {
         return "ReviewDTO{" +
                 "reviewId=" + reviewId +
-                ", product=" + product +
-                ", user=" + user +
+                ", product=" + productId +
+                ", user=" + userId +
                 ", comment='" + comment + '\'' +
                 ", rating=" + rating +
                 ", reviewType='" + reviewType + '\'' +
