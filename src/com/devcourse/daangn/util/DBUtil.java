@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBUtil {
-    public static final String url = "jdbc:mysql://127.0.0.1:3306/workshop";
-    public static final String user = "root";
+    public static final String url = "jdbc:mysql://121.88.130.214:3306/daangn";
+    public static final String user = "devcourse";
     public static final String password = "1234";
 
     public static Connection getConnection() {
