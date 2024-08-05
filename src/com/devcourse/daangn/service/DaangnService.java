@@ -133,6 +133,7 @@ public class DaangnService {
         for (ProductDTO product : products) {
             /* TODO : 여기에서 모든 상품 리스트 먼저 보여주기 */
             System.out.println(product.toString());
+
         }
         System.out.println("---------------------");
         System.out.println("1. 메인 화면으로 가기");

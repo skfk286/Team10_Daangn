@@ -43,6 +43,7 @@ public class ProductDTO extends BaseDTO {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("----------------------------------\n");
+        sb.append("| 물품 번호: ").append(productId).append("\n");
         sb.append("| 제목: ").append(title).append("\n");
         sb.append("----------------------------------\n");
         sb.append("| 설명:\n");
