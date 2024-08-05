@@ -27,7 +27,7 @@ public class UserRepositoryMysql implements UserRepository{
 //    }
     private UserRepositoryMysql() {}
 
-    private static UserRepository instance = new UserRepositoryMysql();
+    private static final UserRepository instance = new UserRepositoryMysql();
 
     public static UserRepository getInstance() { return instance; }
 
