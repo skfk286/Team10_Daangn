@@ -13,9 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LikeRepositoryMysql implements LikeRepository {
-    private Connection conn;
-    private PreparedStatement pstms;
-    private ResultSet rs;
+    private final Connection conn = DBUtil.getConnection();
+
     private static LikeRepositoryMysql instance = new LikeRepositoryMysql();
 
     public static LikeRepositoryMysql getInstance() {
@@ -26,59 +25,44 @@ public class LikeRepositoryMysql implements LikeRepository {
     @Override
     public int findByProduct(ProductDTO productDTO) throws IOException {
         int result = 0;
-        try {
-            String sql = "select count(*) from tb_like where product_id=?";
-            pstms = conn.prepareStatement(sql);
-            pstms.setInt(1, productDTO.getProductId());
-            rs = pstms.executeQuery();
+        String sql = "select count(*) from tb_like where product_id=?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, productDTO.getProductId());
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 result = rs.getInt(1);
             }
-
+            return result;
         }catch (SQLException e){
-            System.out.println("좋아요 조회 실패");
-            throw new RuntimeException(e);
+            throw new RuntimeException("좋아요 조회 실패");
         }
-        return result;
     }
 
     @Override
     public int addLike(ProductDTO productDTO,UserDTO userDTO)throws IOException {
         /* TODO : 좋아요 등록 */
-        int result = 0;
-        try {
-            String sql = "insert into tb_like (product_id, user_id) values (?, ?)";
-            conn = DBUtil.getConnection();
-            pstms = conn.prepareStatement(sql);
-            pstms.setInt(1, productDTO.getProductId());
-            pstms.setInt(2, userDTO.getUserId());
-            result = pstms.executeUpdate();
+        String sql = "insert into tb_like (product_id, user_id) values (?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, productDTO.getProductId());
+            ps.setInt(2, userDTO.getUserId());
+            return ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("좋아요 등록 실패");
         }
-        return result;
     }
 
     @Override
     public int removeLike(ProductDTO productDTO, UserDTO userDTO) throws IOException {
         /* TODO : 좋아요 삭제 */
 
-        int result = 0;
-        try {
-            String sql = "delete from tb_like where product_id = ? && user_id = ?";
-            conn = DBUtil.getConnection();
-            pstms = conn.prepareStatement(sql);
-            pstms.setInt(1, productDTO.getProductId());
-            pstms.setInt(2, userDTO.getUserId());
-            result = pstms.executeUpdate();
+        String sql = "delete from tb_like where product_id = ? && user_id = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, productDTO.getProductId());
+            ps.setInt(2, userDTO.getUserId());
+            return  ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("좋아요 삭제 실패");
         }
-        return result;
     }
 
-//    @Override
-//    public List<ProductDTO> findByUser(UserDTO userDTO) throws IOException {
-//        return List.of();
-//    }
 }
