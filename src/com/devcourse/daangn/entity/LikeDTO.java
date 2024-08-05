@@ -13,28 +13,28 @@ public class LikeDTO {
         this.likeId = likeId;
     }
 
-    public int getUserId() {
-        return userId;
+    public UserDTO getUserDTO() {
+        return userDTO;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
-    public int getProductId() {
-        return productId;
+    public ProductDTO getProductDTO() {
+        return productDTO;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProductDTO(ProductDTO productDTO) {
+        this.productDTO = productDTO;
     }
 
     @Override
     public String toString() {
         return "LikeDTO{" +
                 "likeId=" + likeId +
-                ", userId=" + userId +
-                ", productId=" + productId +
+                ", userDTO=" + userDTO +
+                ", productDTO=" + productDTO +
                 '}';
     }
 }
