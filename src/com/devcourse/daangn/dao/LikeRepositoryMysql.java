@@ -13,9 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LikeRepositoryMysql implements LikeRepository {
-    private final Connection conn = DBUtil.getConnection();
 
-    private static LikeRepositoryMysql instance = new LikeRepositoryMysql();
+    private static final LikeRepositoryMysql instance = new LikeRepositoryMysql();
 
     public static LikeRepositoryMysql getInstance() {
         return instance;
@@ -26,7 +25,8 @@ public class LikeRepositoryMysql implements LikeRepository {
     public int findByProduct(ProductDTO productDTO) throws IOException {
         int result = 0;
         String sql = "select count(*) from tb_like where product_id=?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)){
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, productDTO.getProductId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -42,7 +42,8 @@ public class LikeRepositoryMysql implements LikeRepository {
     public int addLike(ProductDTO productDTO,UserDTO userDTO)throws IOException {
         /* TODO : 좋아요 등록 */
         String sql = "insert into tb_like (product_id, user_id) values (?, ?)";
-        try (PreparedStatement ps = conn.prepareStatement(sql)){
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, productDTO.getProductId());
             ps.setInt(2, userDTO.getUserId());
             return ps.executeUpdate();
@@ -56,7 +57,8 @@ public class LikeRepositoryMysql implements LikeRepository {
         /* TODO : 좋아요 삭제 */
 
         String sql = "delete from tb_like where product_id = ? && user_id = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)){
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, productDTO.getProductId());
             ps.setInt(2, userDTO.getUserId());
             return  ps.executeUpdate();
