@@ -23,7 +23,7 @@ public class ReviewRepositoryMysql implements ReviewRepository {
 
     @Override
     public void createReview(ReviewDTO reviewDTO) {
-        String sql = "INSERT INTO review (product_id, user_id, comment, rating, created_at, updated_at, review_type) VALUES (?, ?, ?, ?, NOW(), NOW(), ?)";
+        String sql = "INSERT INTO tb_review (product_id, user_id, comment, rating, created_at, updated_at, review_type) VALUES (?, ?, ?, ?, NOW(), NOW(), ?)";
 
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -42,7 +42,7 @@ public class ReviewRepositoryMysql implements ReviewRepository {
 
     @Override
     public ReviewDTO getReview(int reviewId) {
-        String sql = "SELECT * FROM review WHERE review_id = ?";
+        String sql = "SELECT * FROM tb_review WHERE review_id = ?";
         ReviewDTO reviewDTO = null;
 
         try (Connection conn = DBUtil.getConnection();
@@ -70,7 +70,7 @@ public class ReviewRepositoryMysql implements ReviewRepository {
 
     @Override
     public List<ReviewDTO> getReviewsByUserId(int userId) {
-        String sql = "SELECT * FROM review WHERE user_id = ?";
+        String sql = "SELECT * FROM tb_review WHERE user_id = ?";
         List<ReviewDTO> reviews = new ArrayList<>();
 
         try (Connection conn = DBUtil.getConnection();
@@ -104,7 +104,7 @@ public class ReviewRepositoryMysql implements ReviewRepository {
 
     @Override
     public void deleteReview(int reviewId) {
-        String sql = "DELETE FROM review WHERE review_id = ?";
+        String sql = "DELETE FROM tb_review WHERE review_id = ?";
 
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
