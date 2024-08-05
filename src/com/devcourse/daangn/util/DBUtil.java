@@ -9,20 +9,26 @@ public class DBUtil {
     public static final String user = "devcourse";
     public static final String password = "1234";
 
-    public static Connection getConnection() {
-        Connection conn = null;
+    static {
         try {
-            conn = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            System.out.println("커넥션 생성 오류");
-            throw new RuntimeException(e);
+            // MySQL JDBC 드라이버를 로드 확인
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("MySQL JDBC 드라이버를 찾을 수 없습니다.", e);
         }
-        return conn;
+    }
+
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            throw new RuntimeException("데이터 베이스 커넥션 생성 오류", e);
+        }
     }
 
     public static void close(AutoCloseable... closeables) {
-        for(AutoCloseable closeable : closeables) {
-            if(closeable != null) {
+        for (AutoCloseable closeable : closeables) {
+            if (closeable != null) {
                 try {
                     closeable.close();
                 } catch (Exception e) {
