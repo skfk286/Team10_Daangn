@@ -129,7 +129,7 @@ public class DaangnService {
         System.out.println("\"당근\" 홈 화면");
         System.out.println("---------------------");
 
-        List<ProductDTO> products  = productRepository.findByLocation(userDTO.getLocation());
+        List<ProductDTO> products  = productRepository.findProductByLocation(userDTO.getLocation());
         for (ProductDTO product : products) {
             /* TODO : 여기에서 모든 상품 리스트 먼저 보여주기 */
             System.out.println(product.toString());
